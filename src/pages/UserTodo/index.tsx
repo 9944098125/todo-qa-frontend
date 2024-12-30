@@ -149,6 +149,18 @@ export const UserTodo = () => {
 		}
 	}, [navigate]);
 
+	useEffect(() => {
+		if (modalHead === "Add Todo") {
+			setTodoTitle("");
+			setTodoDesc({
+				rawData: "",
+				formattedData: "",
+			});
+			setUrgency(false);
+			setDate(null);
+		}
+	}, [showTodoModal]);
+
 	return (
 		<React.Fragment>
 			{AlertState?.message && <AlertModal show={true} />}

@@ -1,9 +1,10 @@
 import React from "react";
-import Modal from "react-modal";
+import { Modal } from "react-responsive-modal";
 import GlobalButton from "../ui/button";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 import Loader from "../ui/Loader";
+import "react-responsive-modal/styles.css";
 
 type Props = {
 	show: boolean;
@@ -17,34 +18,43 @@ const ConfirmationModal = (props: Props) => {
 
 	const ThemeState = useSelector((state: RootState) => state.theme);
 
-	const customStyles = {
-		content: {
-			top: "50%",
-			left: "50%",
-			right: "auto",
-			bottom: "auto",
-			transform: "translate(-50%, -50%)",
-			width: "400px", // Adjust width as needed
-			height: "200px", // Adjust height as needed
-			padding: "20px", // Add padding
-			borderRadius: "10px", // Add rounded corners
-			boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)", // Optional shadow for better appearance
-		},
-	};
+	const closeIcon = (
+		<div className="border-blue-600 border rounded-full p-1">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none">
+				<path
+					d="M18 6L6 18M6 6L18 18"
+					stroke="#667085"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</div>
+	);
 
 	return (
 		<React.Fragment>
-			<Modal isOpen={show} style={customStyles}>
-				<div
-					style={{ backgroundColor: ThemeState.dark ? "black" : "white" }}
-					className="relative w-full">
-					<div className="absolute right-2 top-2">
-						<button
-							onClick={onClose}
-							className="bg-gray-400 text-white flex items-center justify-center h-[25px] w-[25px] rounded-full p-2">
-							x
-						</button>
-					</div>
+			<Modal
+				open={show}
+				onClose={onClose}
+				closeOnOverlayClick={false}
+				center
+				closeIcon={closeIcon}
+				styles={{
+					modal: {
+						backgroundColor: ThemeState.dark ? "black" : "white",
+						color: ThemeState.dark ? "white" : "black",
+						border: "1px #0096FF solid",
+						borderRadius: "9px",
+						width: "100%",
+					},
+				}}>
+				<div className="relative w-full">
 					<div className="w-full flex flex-col justify-between">
 						<h5 className="text-md font-poppins font-medium mb-8">{message}</h5>
 						<div className="flex items-center justify-between px-5">

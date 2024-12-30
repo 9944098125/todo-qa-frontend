@@ -113,6 +113,17 @@ export const Qa = () => {
 	}, [QaState?.success]);
 
 	useEffect(() => {
+		if (modalTitle === "Add Qa") {
+			setQuestion("");
+			setAnswer({
+				rawData: "",
+				formattedData: "",
+			});
+			setImportance("");
+		}
+	}, [showQaModal]);
+
+	useEffect(() => {
 		if (activeSelection) {
 			dispatch(getQa(user?._id, activeSelection as string) as any);
 		}

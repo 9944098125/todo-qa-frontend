@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "react-modal";
+import { Modal } from "react-responsive-modal";
 import { RootState } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { RiCloseCircleFill } from "react-icons/ri";
 import { updatePassword } from "../../redux/actions/login";
 import Loader from "../ui/Loader";
 import PasswordInput from "../../pages/Registration/components/password-input";
+import "react-responsive-modal/styles.css";
 
 type Props = {
 	show: boolean;
@@ -27,41 +28,6 @@ const UpdatePasswordModal = (props: Props) => {
 		formState: { errors },
 	} = form;
 
-	const getResponsiveStyles = () => {
-		const screenWidth = window.innerWidth;
-
-		if (screenWidth <= 700) {
-			return {
-				width: "90%",
-			};
-		} else if (screenWidth <= 1240) {
-			return {
-				width: "60%",
-			};
-		} else {
-			return {
-				width: "50%",
-			};
-		}
-	};
-
-	const customStyles = {
-		content: {
-			top: "50%",
-			left: "50%",
-			right: "auto",
-			bottom: "auto",
-			transform: "translate(-50%, -50%)",
-			padding: "20px",
-			borderRadius: "10px",
-			color: ThemeState.dark ? "white" : "black",
-			backgroundColor: ThemeState.dark ? "black" : "white",
-			boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
-			...getResponsiveStyles(), // Apply responsive width initially
-		},
-	};
-
-	const [modalStyles, setModalStyles] = useState(customStyles);
 	const [showOldPassword, setShowOldPassword] = useState(false);
 	const [showNewPassword, setShowNewPassword] = useState(false);
 
@@ -79,38 +45,49 @@ const UpdatePasswordModal = (props: Props) => {
 		}
 	}, [AuthState.updateSuccess]);
 
-	// Function to dynamically update modal width based on screen size
-	const updateModalStyles = () => {
-		setModalStyles({
-			...customStyles,
-			content: {
-				...customStyles.content,
-				...getResponsiveStyles(),
-			},
-		});
-	};
-
-	// Add resize listener to update modal styles
-	useEffect(() => {
-		updateModalStyles(); // Set initial styles
-		window.addEventListener("resize", updateModalStyles);
-		return () => window.removeEventListener("resize", updateModalStyles);
-	}, []);
-
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
 		if (e.key === "Enter") {
 			e.preventDefault(); // Prevent form submission
 		}
 	};
 
+	const closeIcon = (
+		<div className="border-blue-600 border rounded-full p-1">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				width="24"
+				height="24"
+				viewBox="0 0 24 24"
+				fill="none">
+				<path
+					d="M18 6L6 18M6 6L18 18"
+					stroke="#667085"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
+		</div>
+	);
+
 	return (
 		<React.Fragment>
-			<div className="w-full">
+			<div className="w-full md:w-1/2">
 				<Modal
-					onRequestClose={() => setShow(false)}
-					isOpen={show}
-					shouldCloseOnOverlayClick={false}
-					style={modalStyles}>
+					styles={{
+						modal: {
+							backgroundColor: ThemeState.dark ? "black" : "",
+							color: ThemeState.dark ? "white" : "",
+							border: "1px #0096FF solid",
+							borderRadius: "9px",
+							width: "95%",
+						},
+					}}
+					closeIcon={closeIcon}
+					closeOnOverlayClick={false}
+					open={show}
+					onClose={() => setShow(false)}
+					center>
 					<form
 						onKeyDown={handleKeyDown}
 						onSubmit={form.handleSubmit(submitUpdatePassword)}>
@@ -119,11 +96,11 @@ const UpdatePasswordModal = (props: Props) => {
 								<h4 className="text-2xl font-medium font-poppins">
 									Update Password
 								</h4>
-								<button
+								{/* <button
 									onClick={() => setShow(false)}
 									className="bg-transparent hover:border border-blue-600 rounded-full p-2">
 									<RiCloseCircleFill fontSize={25} />
-								</button>
+								</button> */}
 							</div>
 							<div className="w-full p-2">
 								<PasswordInput

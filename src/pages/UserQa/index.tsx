@@ -136,6 +136,17 @@ export const UserQa = () => {
 		}
 	}, [navigate]);
 
+	useEffect(() => {
+		if (modalTitle === "Add Qa") {
+			setQuestion("");
+			setAnswer({
+				rawData: "",
+				formattedData: "",
+			});
+			setImportance("");
+		}
+	}, [showQaModal]);
+
 	return (
 		<React.Fragment>
 			<div className="w-full p-2 md:p-4">
