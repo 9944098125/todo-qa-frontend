@@ -22,10 +22,6 @@ export const Home = () => {
 				})
 				.then((data) => {
 					if (data) {
-						localStorage.setItem(
-							"asp-todo-qa-user",
-							JSON.stringify(data?.user)
-						);
 						navigate("/todo-items", { replace: true });
 					} else {
 						navigate("/login", { replace: true });
