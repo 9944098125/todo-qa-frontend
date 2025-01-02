@@ -38,3 +38,7 @@ ul {
 ol {
 	list-style-type: decimal;
 }
+div.react-calendar {
+	background-color: black !important;
+	color: white !important;
+}
