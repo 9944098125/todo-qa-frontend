@@ -12,7 +12,7 @@ const middleware: any = [thunk];
 const store = createStore<any, any>(
 	rootReducer,
 	{},
-	composeWithDevTools(applyMiddleware(...middleware))
+	applyMiddleware(...middleware)
 );
 
 let currentState;
