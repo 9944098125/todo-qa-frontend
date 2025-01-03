@@ -24,13 +24,7 @@ export const Users = () => {
 
 	useEffect(() => {
 		dispatch(getUsers() as any);
-	}, [AlertState?.message]);
-
-	useEffect(() => {
-		if (!(admin || admin?.isAdmin)) {
-			navigate("/login");
-		}
-	}, [navigate]);
+	}, []);
 
 	return (
 		<React.Fragment>
