@@ -61,10 +61,5 @@
 	"devDependencies": {
 		"@babel/plugin-proposal-private-property-in-object": "^7.21.11",
 		"tailwindcss": "^3.4.14"
-	},
-	"proxy": {
-		"target": "https://todo-qa-with-ts-backend-production.up.railway.app",
-		"changeOrigin": true,
-		"secure": false
 	}
 }
