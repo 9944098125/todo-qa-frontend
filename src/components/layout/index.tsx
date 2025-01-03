@@ -1,29 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 
 const AppLayout = () => {
-	const navigate = useNavigate();
-	const user = localStorage.getItem("asp-todo-qa-user")
-		? JSON.parse(localStorage.getItem("asp-todo-qa-user") || "")
-		: null;
 	const theme = useSelector((state: RootState) => state.theme);
 	const SidebarToggler = useSelector((state: RootState) => state.sidebar);
-
-	useEffect(() => {
-		if (localStorage.getItem("asp-todo-qa-token")) {
-			if (user?.isAdmin) {
-				navigate("/users", { replace: true });
-			} else {
-				navigate("/todo-items", { replace: true });
-			}
-		} else {
-			navigate("/login");
-		}
-	});
 
 	return (
 		<React.Fragment>
