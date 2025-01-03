@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
 export const Home = () => {
 	const navigate = useNavigate();
+	const [loading, setLoading] = useState(true); // State for loading indicator
+	const [error, setError] = useState(null); // State to capture errors
 
 	useEffect(() => {
 		const fetchUserData = async () => {
@@ -18,13 +20,15 @@ export const Home = () => {
 					"https://todo-qa-with-ts-backend-production.up.railway.app/login/success",
 					{
 						method: "GET",
+						headers: {
+							Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+						},
 						credentials: "include", // Include cookies
 					}
 				);
 
 				if (!response.ok) {
-					console.log("error: ", response);
-					throw new Error("Failed to fetch user data:");
+					throw new Error("Failed to fetch user data");
 				}
 
 				const data = await response.json();
@@ -40,18 +44,41 @@ export const Home = () => {
 				}
 			} catch (error) {
 				console.error("Error fetching user data:", error);
+				setError(error as any); // Capture error message
 				Cookies.remove("asp-todo-qa-token"); // Clear invalid token if needed
 				navigate("/login", { replace: true });
+			} finally {
+				setLoading(false); // Set loading to false after fetching data
 			}
 		};
 
-		// Call the function
+		// Call the function to fetch user data
 		fetchUserData();
 	}, [navigate]);
 
+	if (loading) {
+		return (
+			<div className="w-full h-screen flex items-center justify-center">
+				<h1 className="text-blue-600 rounded-lg border border-cyan-600 p-5 font-bold text-2xl">
+					Loading, please wait...
+				</h1>
+			</div>
+		);
+	}
+
+	if (error) {
+		return (
+			<div className="w-full h-screen flex items-center justify-center">
+				<h1 className="text-red-600 rounded-lg border border-red-600 p-5 font-bold text-2xl">
+					{error}
+				</h1>
+			</div>
+		);
+	}
+
 	return (
 		<div className="w-full h-screen flex items-center justify-center">
-			<h1 className="text-red-600 rounded-lg border border-cyan-600 p-5 font-bold text-2xl">
+			<h1 className="text-green-600 rounded-lg border border-green-600 p-5 font-bold text-2xl">
 				Hello User/Admin, please wait while we redirect you to your allocated
 				page.
 			</h1>
