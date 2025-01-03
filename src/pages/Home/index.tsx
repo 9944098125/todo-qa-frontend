@@ -23,7 +23,8 @@ export const Home = () => {
 				);
 
 				if (!response.ok) {
-					throw new Error("Failed to fetch user data");
+					console.log("error: ", response);
+					throw new Error("Failed to fetch user data:");
 				}
 
 				const data = await response.json();
