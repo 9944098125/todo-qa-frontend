@@ -136,10 +136,7 @@ export const Qa = () => {
 	]);
 
 	useEffect(() => {
-		if (
-			!localStorage.getItem("asp-todo-qa-user") ||
-			!Cookies.get("asp-todo-qa-token")
-		) {
+		if (!user) {
 			navigate("/login");
 		}
 	}, [navigate]);
