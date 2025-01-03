@@ -131,12 +131,6 @@ export const UserQa = () => {
 	}, [dispatch, userId, activeSelection, AdminQaState?.toggler]);
 
 	useEffect(() => {
-		if (!localStorage.getItem("asp-todo-qa-user")) {
-			navigate("/login");
-		}
-	}, [navigate]);
-
-	useEffect(() => {
 		if (modalTitle === "Add Qa") {
 			setQuestion("");
 			setAnswer({

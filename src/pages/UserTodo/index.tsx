@@ -144,12 +144,6 @@ export const UserTodo = () => {
 	}, [dispatch, userId, admin?._id, AdminTodo?.success, AlertState?.message]);
 
 	useEffect(() => {
-		if (!localStorage.getItem("asp-todo-qa-user")) {
-			navigate("/login");
-		}
-	}, [navigate]);
-
-	useEffect(() => {
 		if (modalHead === "Add Todo") {
 			setTodoTitle("");
 			setTodoDesc({

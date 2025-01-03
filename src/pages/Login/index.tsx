@@ -39,10 +39,7 @@ export const Login = () => {
 	]);
 
 	useEffect(() => {
-		if (
-			localStorage.getItem("asp-todo-qa-token") ||
-			localStorage.getItem("asp-todo-qa-user")
-		) {
+		if (localStorage.getItem("asp-todo-qa-token")) {
 			if (JSON.parse(localStorage.getItem("asp-todo-qa-user")!)?.isAdmin) {
 				navigate("/users", { replace: true });
 			} else {

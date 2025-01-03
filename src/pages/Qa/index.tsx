@@ -135,12 +135,6 @@ export const Qa = () => {
 		AlertState?.message,
 	]);
 
-	useEffect(() => {
-		if (!user) {
-			navigate("/login");
-		}
-	}, [navigate]);
-
 	return (
 		<React.Fragment>
 			<div className="w-full p-2">

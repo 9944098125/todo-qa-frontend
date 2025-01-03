@@ -124,12 +124,6 @@ export const Todo = () => {
 	}, [dispatch, user?._id, TodoState?.success, AlertState?.message]);
 
 	useEffect(() => {
-		if (!user) {
-			navigate("/login");
-		}
-	}, [navigate]);
-
-	useEffect(() => {
 		if (modalHead === "Add Todo") {
 			setTodoTitle("");
 			setTodoDesc({
