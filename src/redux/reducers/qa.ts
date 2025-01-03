@@ -1,4 +1,3 @@
-import { getQaOfAUser } from "../actions/admin";
 import {
 	CREATE_QA_FAILURE,
 	CREATE_QA_START,
