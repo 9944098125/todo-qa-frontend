@@ -12,6 +12,7 @@ import { UserQa } from "../pages/UserQa/Loadable";
 import { Todo } from "../pages/Todo/Loadable";
 import { Qa } from "../pages/Qa/Loadable";
 import { RegistrationPage } from "../pages/Registration/Loadable";
+import Home from "../pages/Home";
 
 const router = createBrowserRouter([
 	{
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
 		path: "/",
 		element: <AppLayout />,
 		children: [
+			{
+				path: "/",
+				element: <Home />,
+			},
 			{
 				path: "/users",
 				element: <Users />,
