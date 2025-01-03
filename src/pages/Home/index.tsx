@@ -10,19 +10,19 @@ export const Home = () => {
 	useEffect(() => {
 		const fetchUserData = async () => {
 			try {
-				// const token = Cookies.get("asp-todo-qa-token");
+				const token = Cookies.get("asp-todo-qa-token");
 
-				// if (!token) {
-				// 	throw new Error("Token not found in cookies");
-				// }
+				if (!token) {
+					throw new Error("Token not found in cookies");
+				}
 
 				const response = await fetch(
 					"https://todo-qa-with-ts-backend-production.up.railway.app/login/success",
 					{
 						method: "GET",
-						// headers: {
-						// 	Authorization: `Bearer ${token}`, // Pass token in the Authorization header
-						// },
+						headers: {
+							Authorization: `Bearer ${token}`, // Pass token in the Authorization header
+						},
 						credentials: "include", // Include cookies
 					}
 				);
