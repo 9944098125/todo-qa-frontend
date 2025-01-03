@@ -13,6 +13,7 @@ import {
 	updateQa,
 } from "../../redux/actions/qa";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const Qa = () => {
 	const dispatch = useDispatch();
@@ -135,7 +136,10 @@ export const Qa = () => {
 	]);
 
 	useEffect(() => {
-		if (!localStorage.getItem("asp-todo-qa-user")) {
+		if (
+			!localStorage.getItem("asp-todo-qa-user") ||
+			!Cookies.get("asp-todo-qa-token")
+		) {
 			navigate("/login");
 		}
 	}, [navigate]);

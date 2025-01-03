@@ -20,9 +20,9 @@ export const Home = () => {
 					"https://todo-qa-with-ts-backend-production.up.railway.app/login/success",
 					{
 						method: "GET",
-						// headers: {
-						// 	Authorization: `Bearer ${token}`, // Pass token in the Authorization header
-						// },
+						headers: {
+							Authorization: `Bearer ${Cookies.get("asp-todo-qa-token")}`, // Pass token in the Authorization header
+						},
 						credentials: "include", // Include cookies
 					}
 				);

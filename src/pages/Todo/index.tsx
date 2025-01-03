@@ -17,6 +17,7 @@ import {
 	updateTodo,
 } from "../../redux/actions/todo";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 type ValuePiece = Date | null;
 
@@ -124,7 +125,10 @@ export const Todo = () => {
 	}, [dispatch, user?._id, TodoState?.success, AlertState?.message]);
 
 	useEffect(() => {
-		if (!localStorage.getItem("asp-todo-qa-user")) {
+		if (
+			!localStorage.getItem("asp-todo-qa-user") ||
+			!Cookies.get("asp-todo-qa-token")
+		) {
 			navigate("/login");
 		}
 	}, [navigate]);
