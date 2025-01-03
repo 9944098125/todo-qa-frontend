@@ -5,8 +5,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
 import Loader from "../../../components/ui/Loader";
 import { Link } from "react-router-dom";
-import GoogleLogin from "./google";
-import GithubLogin from "./github";
 import PasswordInput from "../../Registration/components/password-input";
 
 type Props = {
@@ -80,14 +78,6 @@ const LoginForm = (props: Props) => {
 						</span>
 					</button>
 				</form>
-				<div className="flex items-center">
-					<div className="w-1/2 p-2">
-						<GoogleLogin />
-					</div>
-					<div className="w-1/2 p-2">
-						<GithubLogin />
-					</div>
-				</div>
 				<p className="text-[12px] text-red-500 font-poppins font-normal">
 					Don't have an account ? Please{" "}
 					<Link
