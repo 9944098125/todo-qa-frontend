@@ -5,7 +5,6 @@ import { NotFound } from "../pages/NotFound/Loadable";
 import { Unauthorized } from "../pages/Unauthorized/Loadable";
 import { Users } from "../pages/Users/Loadable";
 import { Profile } from "../pages/Profile/Loadable";
-import { Home } from "../pages/Home/Loadable";
 import { UserDetailsPage } from "../pages/UserDetails/Loadable";
 import { UserTodo } from "../pages/UserTodo/Loadable";
 import { AddUser } from "../pages/AddUser/Loadable";
@@ -27,10 +26,6 @@ const router = createBrowserRouter([
 		path: "/",
 		element: <AppLayout />,
 		children: [
-			{
-				path: "/",
-				element: <Home />,
-			},
 			{
 				path: "/users",
 				element: <Users />,
