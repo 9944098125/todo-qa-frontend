@@ -63,7 +63,7 @@ const AccordionComponent = (props: Props) => {
 							<div className="mb-5 flex flex-col md:flex-row space-y-5 md:justify-between">
 								<div
 									dangerouslySetInnerHTML={{ __html: content as string }}></div>
-								<div className="flex items-center space-x-5 px-4 md:mb-5">
+								<div className="flex items-center space-x-5 px-4 md:mb-10">
 									<div
 										onClick={() => {
 											setModalHead("Edit Todo");
