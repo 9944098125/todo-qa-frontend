@@ -35,6 +35,7 @@ export const login =
 				type: LOGIN_FAILURE,
 				payload: err?.response?.data?.message,
 			});
+			console.log("error while login", err);
 			dispatch(
 				alertActions.error(
 					err?.response?.data?.message || "Something went wrong !"
