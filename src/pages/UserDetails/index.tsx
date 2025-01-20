@@ -8,8 +8,7 @@ import TabTitle from "../../utils/tab-title";
 import { getUserById, updateUser } from "../../redux/actions/admin";
 import { useNavigate, useParams } from "react-router-dom";
 import GlobalButton from "../../components/ui/button";
-import { RiKey2Fill, RiQuestionAnswerFill, RiTodoFill } from "react-icons/ri";
-import UpdatePasswordModal from "../../components/parts/update-password-modal";
+import { RiQuestionAnswerFill, RiTodoFill } from "react-icons/ri";
 
 export const UserDetailsPage = () => {
 	const { userId } = useParams();
@@ -22,7 +21,6 @@ export const UserDetailsPage = () => {
 
 	const [image, setImage] = useState("");
 	const [imageUploadLoading, setImageUploadLoading] = useState(false);
-	const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
 
 	const handleSubmitImageUpload = () => {
 		const body = {
@@ -124,22 +122,6 @@ export const UserDetailsPage = () => {
 							<RiQuestionAnswerFill className="font-medium" />
 						</div>
 					</GlobalButton>
-
-					<GlobalButton
-						variant="BLUE"
-						type="button"
-						onClick={() => setShowUpdatePasswordModal(true)}>
-						<p className="text-md">Update Password</p>
-						<RiKey2Fill />
-					</GlobalButton>
-
-					{showUpdatePasswordModal && (
-						<UpdatePasswordModal
-							show={showUpdatePasswordModal}
-							setShow={setShowUpdatePasswordModal}
-							userId={UserDetailsState?.user?._id}
-						/>
-					)}
 				</div>
 			</div>
 		</React.Fragment>
