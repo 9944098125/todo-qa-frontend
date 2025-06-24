@@ -6,4 +6,5 @@ export const Api = Axios.create({
 	headers: {
 		"Content-Type": "application/json",
 	},
+	withCredentials: true,
 });
