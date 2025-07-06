@@ -24,6 +24,12 @@ const initialState = {
 	message: null,
 	aiDesc: null,
 	todoCountChanged: false,
+	pagination: {
+		pageNumber: 1,
+		pageSize: 20,
+		totalPages: 1,
+		totalDocuments: 0,
+	},
 };
 
 export default function todo(state = initialState, action: any) {
@@ -59,8 +65,14 @@ export default function todo(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
-				todoItems: action.payload?.todoList,
+				todoItems: action.payload?.data?.documents || action.payload?.todoList,
 				message: action.payload?.message,
+				pagination: {
+					pageNumber: parseInt(action.payload?.data?.pageNumber) || 1,
+					pageSize: parseInt(action.payload?.data?.pageSize) || 20,
+					totalPages: parseInt(action.payload?.data?.totalPages) || 1,
+					totalDocuments: parseInt(action.payload?.data?.totalDocuments) || 0,
+				},
 			};
 		case GET_TODO_FAILURE:
 			return {

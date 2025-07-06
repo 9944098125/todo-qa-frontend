@@ -119,6 +119,12 @@ export interface RootState {
 			importance: string;
 			toolId: string;
 		}[];
+		pagination: {
+			pageNumber: number;
+			pageSize: number;
+			totalPages: number;
+			totalDocuments: number;
+		};
 	};
 	todo: {
 		todoItems: {
@@ -134,6 +140,12 @@ export interface RootState {
 		message: string;
 		aiDesc: string;
 		todoCountChanged: boolean;
+		pagination: {
+			pageNumber: number;
+			pageSize: number;
+			totalPages: number;
+			totalDocuments: number;
+		};
 	};
 	qa: {
 		qaItems: {
@@ -148,6 +160,12 @@ export interface RootState {
 		aiAnswer: any;
 		isLoading: boolean;
 		createdUpdatedSuccessfully: boolean;
+		pagination: {
+			pageNumber: number;
+			pageSize: number;
+			totalPages: number;
+			totalDocuments: number;
+		};
 	};
 	search: {
 		filteredItems: any[];

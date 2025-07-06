@@ -52,6 +52,12 @@ const initialState = {
 	isLoading: false,
 	user: null,
 	toggler: false,
+	pagination: {
+		pageNumber: 1,
+		pageSize: 20,
+		totalPages: 1,
+		totalDocuments: 0,
+	},
 };
 
 export default function admin(state = initialState, action: any) {
@@ -191,7 +197,13 @@ export default function admin(state = initialState, action: any) {
 				successMessage: action.payload?.message,
 				success: true,
 				toggler: !state.toggler,
-				todoItems: action.payload?.todoList,
+				todoItems: action.payload?.data?.documents || action.payload?.todoList,
+				pagination: {
+					pageNumber: parseInt(action.payload?.data?.pageNumber) || 1,
+					pageSize: parseInt(action.payload?.data?.pageSize) || 20,
+					totalPages: parseInt(action.payload?.data?.totalPages) || 1,
+					totalDocuments: parseInt(action.payload?.data?.totalDocuments) || 0,
+				},
 			};
 		case GET_TODO_FOR_USER_FAILURE:
 			return {
@@ -274,8 +286,14 @@ export default function admin(state = initialState, action: any) {
 				...state,
 				isLoading: false,
 				success: true,
-				qaItems: action.payload?.qas,
+				qaItems: action.payload?.data?.documents || action.payload?.qas,
 				successMessage: action.payload?.message,
+				pagination: {
+					pageNumber: parseInt(action.payload?.data?.pageNumber) || 1,
+					pageSize: parseInt(action.payload?.data?.pageSize) || 20,
+					totalPages: parseInt(action.payload?.data?.totalPages) || 1,
+					totalDocuments: parseInt(action.payload?.data?.totalDocuments) || 0,
+				},
 			};
 		case GET_QA_OF_USER_FAILURE:
 			return {

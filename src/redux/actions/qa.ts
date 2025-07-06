@@ -52,12 +52,12 @@ export const createQa =
 	};
 
 export const getQa =
-	(userId: string, toolId: string) => async (dispatch: AppDispatch) => {
+	(userId: string, toolId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_QA_START,
 			});
-			const res = await Api.get(`/qa/${userId}/${toolId}`);
+			const res = await Api.get(`/qa/${userId}/${toolId}?page=${page}&pageSize=${pageSize}`);
 			if (res) {
 				dispatch({
 					type: GET_QA_SUCCESS,

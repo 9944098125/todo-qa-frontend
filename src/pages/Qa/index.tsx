@@ -5,6 +5,7 @@ import { RootState } from "../../redux/reducers";
 import { AlertModal } from "../../components/ui/alert";
 import QaItem from "../../components/parts/qa-item";
 import { Accordion } from "react-accessible-accordion";
+import { Pagination } from "../../components/ui/pagination";
 import {
 	createQa,
 	deleteQa,
@@ -39,6 +40,7 @@ export const Qa = () => {
 		formattedData: string;
 	}>({ rawData: "", formattedData: "" });
 	const [importance, setImportance] = useState<string>("");
+	const [currentPage, setCurrentPage] = useState<number>(1);
 
 	const handleAnswerChange = (value: string) => {
 		setAnswer({
@@ -124,15 +126,20 @@ export const Qa = () => {
 		}
 	}, [showQaModal]);
 
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
+
 	useEffect(() => {
 		if (activeSelection) {
-			dispatch(getQa(user?._id, activeSelection as string) as any);
+			dispatch(getQa(user?._id, activeSelection as string, currentPage, 20) as any);
 		}
 	}, [
 		dispatch,
 		activeSelection,
 		QaState?.createdUpdatedSuccessfully,
 		AlertState?.message,
+		currentPage,
 	]);
 
 	return (
@@ -188,6 +195,16 @@ export const Qa = () => {
 								);
 						  })}
 				</Accordion>
+				{/* Pagination Component */}
+				{!SearchState?.filteredItems?.length && QaState?.pagination && (
+					<Pagination
+						currentPage={QaState.pagination.pageNumber}
+						totalPages={QaState.pagination.totalPages}
+						totalDocuments={QaState.pagination.totalDocuments}
+						pageSize={QaState.pagination.pageSize}
+						onPageChange={handlePageChange}
+					/>
+				)}
 			</div>
 		</React.Fragment>
 	);

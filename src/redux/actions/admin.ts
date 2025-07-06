@@ -246,12 +246,12 @@ export const createTodoForUser =
 	};
 
 export const getTodoOfUser =
-	(userId: string, adminId: string) => async (dispatch: AppDispatch) => {
+	(userId: string, adminId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_TODO_FOR_USER_START,
 			});
-			const res = await Api.get(`/admin/todo/${userId}/${adminId}`);
+			const res = await Api.get(`/admin/todo/${userId}/${adminId}?page=${page}&pageSize=${pageSize}`);
 			if (res) {
 				dispatch({
 					type: GET_TODO_FOR_USER_SUCCESS,
@@ -390,12 +390,12 @@ export const createQaForUser =
 	};
 
 export const getQaOfAUser =
-	(userId: string, toolId: string) => async (dispatch: AppDispatch) => {
+	(userId: string, toolId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_QA_OF_USER_START,
 			});
-			const res = await Api.get(`/admin/qa/${userId}/${toolId}`);
+			const res = await Api.get(`/admin/qa/${userId}/${toolId}?page=${page}&pageSize=${pageSize}`);
 			if (res) {
 				dispatch({
 					type: GET_QA_OF_USER_SUCCESS,

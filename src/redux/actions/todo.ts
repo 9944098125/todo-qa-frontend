@@ -51,12 +51,12 @@ export const createTodo = (body: Todo) => async (dispatch: AppDispatch) => {
 };
 
 export const getTodoListWithUserId =
-	(userId: string) => async (dispatch: AppDispatch) => {
+	(userId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_TODO_START,
 			});
-			const res = await Api.get(`/todo/${userId}`);
+			const res = await Api.get(`/todo/${userId}?page=${page}&pageSize=${pageSize}`);
 			if (res) {
 				dispatch({
 					type: GET_TODO_SUCCESS,

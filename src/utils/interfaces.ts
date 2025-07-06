@@ -37,3 +37,44 @@ export interface Qa {
 	toolId: string;
 	userId: string;
 }
+
+export interface PaginationData {
+	pageNumber: number;
+	pageSize: number;
+	totalPages: number;
+	totalDocuments: number;
+}
+
+export interface TodoState {
+	todoItems: Todo[];
+	success: boolean;
+	error: any;
+	isLoading: boolean;
+	message: string | null;
+	aiDesc: string | null;
+	todoCountChanged: boolean;
+	pagination: PaginationData;
+}
+
+export interface QaState {
+	qaItems: Qa[];
+	success: boolean;
+	message: string | null;
+	aiAnswer: string | null;
+	isLoading: boolean;
+	createdUpdatedSuccessfully: boolean;
+	pagination: PaginationData;
+}
+
+export interface AdminState {
+	users: any[];
+	todoItems: Todo[];
+	qaItems: Qa[];
+	success: boolean;
+	error: string;
+	successMessage: string;
+	isLoading: boolean;
+	user: any;
+	toggler: boolean;
+	pagination: PaginationData;
+}
