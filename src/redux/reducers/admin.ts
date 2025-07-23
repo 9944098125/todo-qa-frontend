@@ -72,7 +72,7 @@ export default function admin(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
-				users: action?.payload.users,
+				users: action?.payload?.data?.documents || action?.payload?.users || [],
 				success: false,
 			};
 		case GET_USERS_FAILURE:

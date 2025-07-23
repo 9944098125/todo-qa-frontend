@@ -40,12 +40,11 @@ export const Users = () => {
 				</Link>
 			</div>
 			<div className="grid grid-cols-12 gap-4">
-				{SearchState?.filteredItems.length > 0
-					? SearchState.filteredItems?.map((user) => {
+				{SearchState?.filteredItems && SearchState.filteredItems.length > 0
+					? SearchState.filteredItems.map((user) => {
 							return (
-								<div className="col-span-12 md:col-span-6 lg:col-span-3">
+								<div key={user?._id} className="col-span-12 md:col-span-6 lg:col-span-3">
 									<UserItem
-										key={user?._id}
 										name={user?.name}
 										_id={user?._id}
 										profilePicture={user?.profilePicture}
@@ -55,9 +54,8 @@ export const Users = () => {
 					  })
 					: UsersState?.users?.map((user) => {
 							return (
-								<div className="col-span-12 md:col-span-6 lg:col-span-3">
+								<div key={user?._id} className="col-span-12 md:col-span-6 lg:col-span-3">
 									<UserItem
-										key={user?._id}
 										name={user?.name}
 										_id={user?._id}
 										profilePicture={user?.profilePicture}
