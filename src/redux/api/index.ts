@@ -5,7 +5,7 @@ import {
 } from "../../utils/api-response";
 
 export const Api = Axios.create({
-	baseURL: "http://localhost:5001/api",
+	baseURL: "https://todo-qa-with-ts-backend-production.up.railway.app/api",
 	headers: {
 		"Content-Type": "application/json",
 	},
