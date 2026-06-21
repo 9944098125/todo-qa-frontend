@@ -169,5 +169,6 @@ export interface RootState {
 	};
 	search: {
 		filteredItems: any[];
+		query: string;
 	};
 }

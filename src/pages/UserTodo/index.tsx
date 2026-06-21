@@ -15,6 +15,7 @@ import TodoItem from "../../components/parts/todo-item";
 import { Accordion } from "react-accessible-accordion";
 import { formatDate } from "../../utils/date-formatter";
 import { AlertModal } from "../../components/ui/alert";
+import { Pagination } from "../../components/ui/pagination";
 import { useForm } from "react-hook-form";
 import { generateTodoDesc } from "../../redux/actions/todo";
 
@@ -45,6 +46,7 @@ export const UserTodo = () => {
 	}>();
 	const [urgency, setUrgency] = useState<boolean>(false);
 	const [date, setDate] = useState<Value>(new Date());
+	const [currentPage, setCurrentPage] = useState<number>(1);
 
 	// const handleDescriptionChange = (
 	// 	inputData: any,
@@ -140,8 +142,19 @@ export const UserTodo = () => {
 	}, [AdminTodo?.success, AlertState.message]);
 
 	useEffect(() => {
-		dispatch(getTodoOfUser(userId as string, admin?._id) as any);
-	}, [dispatch, userId, admin?._id, AdminTodo?.success, AlertState?.message]);
+		dispatch(getTodoOfUser(userId as string, admin?._id, currentPage, 10) as any);
+	}, [
+		dispatch,
+		userId,
+		admin?._id,
+		AdminTodo?.success,
+		AlertState?.message,
+		currentPage,
+	]);
+
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
 
 	useEffect(() => {
 		if (modalHead === "Add Todo") {
@@ -205,6 +218,16 @@ export const UserTodo = () => {
 							);
 						})}
 					</Accordion>
+					{/* Pagination Component */}
+					{AdminTodo?.pagination?.totalPages > 1 && (
+						<Pagination
+							currentPage={AdminTodo.pagination.pageNumber}
+							totalPages={AdminTodo.pagination.totalPages}
+							totalDocuments={AdminTodo.pagination.totalDocuments}
+							pageSize={AdminTodo.pagination.pageSize}
+							onPageChange={handlePageChange}
+						/>
+					)}
 				</div>
 			</div>
 		</React.Fragment>

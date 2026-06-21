@@ -52,7 +52,7 @@ export const createQa =
 	};
 
 export const getQa =
-	(userId: string, toolId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
+	(userId: string, toolId: string, page: number = 1, pageSize: number = 10) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_QA_START,

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TabTitle from "../../utils/tab-title";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
@@ -6,6 +6,7 @@ import { getUsers } from "../../redux/actions/admin";
 import UserItem from "./components/user-item";
 import { AlertModal } from "../../components/ui/alert";
 import GlobalButton from "../../components/ui/button";
+import { Pagination } from "../../components/ui/pagination";
 import { Link, useNavigate } from "react-router-dom";
 
 export const Users = () => {
@@ -20,11 +21,15 @@ export const Users = () => {
 	const AlertState = useSelector((state: RootState) => state.alert);
 	const SearchState = useSelector((state: RootState) => state.search);
 
-	console.log("filtered", SearchState.filteredItems);
+	const [currentPage, setCurrentPage] = useState<number>(1);
+
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
 
 	useEffect(() => {
-		dispatch(getUsers() as any);
-	}, []);
+		dispatch(getUsers(currentPage, 10) as any);
+	}, [dispatch, currentPage]);
 
 	return (
 		<React.Fragment>
@@ -40,7 +45,7 @@ export const Users = () => {
 				</Link>
 			</div>
 			<div className="grid grid-cols-12 gap-4">
-				{SearchState?.filteredItems && SearchState.filteredItems.length > 0
+				{SearchState?.query
 					? SearchState.filteredItems.map((user) => {
 							return (
 								<div key={user?._id} className="col-span-12 md:col-span-6 lg:col-span-3">
@@ -64,6 +69,16 @@ export const Users = () => {
 							);
 					  })}
 			</div>
+			{/* Pagination Component */}
+			{!SearchState?.query && UsersState?.pagination?.totalPages > 1 && (
+				<Pagination
+					currentPage={UsersState.pagination.pageNumber}
+					totalPages={UsersState.pagination.totalPages}
+					totalDocuments={UsersState.pagination.totalDocuments}
+					pageSize={UsersState.pagination.pageSize}
+					onPageChange={handlePageChange}
+				/>
+			)}
 		</React.Fragment>
 	);
 };

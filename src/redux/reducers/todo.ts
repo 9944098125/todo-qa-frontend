@@ -26,7 +26,7 @@ const initialState = {
 	todoCountChanged: false,
 	pagination: {
 		pageNumber: 1,
-		pageSize: 20,
+		pageSize: 10,
 		totalPages: 1,
 		totalDocuments: 0,
 	},
@@ -68,10 +68,10 @@ export default function todo(state = initialState, action: any) {
 				todoItems: action.payload?.data?.documents || action.payload?.todoList,
 				message: action.payload?.message,
 				pagination: {
-					pageNumber: parseInt(action.payload?.data?.pageNumber) || 1,
-					pageSize: parseInt(action.payload?.data?.pageSize) || 20,
-					totalPages: parseInt(action.payload?.data?.totalPages) || 1,
-					totalDocuments: parseInt(action.payload?.data?.totalDocuments) || 0,
+					pageNumber: Number(action.payload?.data?.pageNumber) || 1,
+					pageSize: Number(action.payload?.data?.pageSize) || 10,
+					totalPages: Number(action.payload?.data?.totalPages) || 1,
+					totalDocuments: Number(action.payload?.data?.totalDocuments) || 0,
 				},
 			};
 		case GET_TODO_FAILURE:

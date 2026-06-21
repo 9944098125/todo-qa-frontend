@@ -43,12 +43,14 @@ import {
 	UPDATE_USER_SUCCESS,
 } from "./types";
 
-export const getUsers = () => async (dispatch: AppDispatch) => {
+export const getUsers =
+	(page: number = 1, pageSize: number = 10) =>
+	async (dispatch: AppDispatch) => {
 	try {
 		dispatch({
 			type: GET_USERS_START,
 		});
-		const res = await Api.get("/admin/users");
+		const res = await Api.get(`/admin/users?page=${page}&pageSize=${pageSize}`);
 		if (res) {
 			dispatch({
 				type: GET_USERS_SUCCESS,
@@ -246,7 +248,7 @@ export const createTodoForUser =
 	};
 
 export const getTodoOfUser =
-	(userId: string, adminId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
+	(userId: string, adminId: string, page: number = 1, pageSize: number = 10) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_TODO_FOR_USER_START,
@@ -390,7 +392,7 @@ export const createQaForUser =
 	};
 
 export const getQaOfAUser =
-	(userId: string, toolId: string, page: number = 1, pageSize: number = 20) => async (dispatch: AppDispatch) => {
+	(userId: string, toolId: string, page: number = 1, pageSize: number = 10) => async (dispatch: AppDispatch) => {
 		try {
 			dispatch({
 				type: GET_QA_OF_USER_START,
@@ -473,7 +475,7 @@ export const deleteQaForUser =
 			if (res) {
 				dispatch({
 					type: DELETE_QA_FOR_USER_SUCCESS,
-					payload: res?.data?.message,
+					payload: res?.data,
 				});
 				dispatch(alertActions.success(res?.data?.message));
 				setTimeout(() => {
@@ -484,7 +486,7 @@ export const deleteQaForUser =
 		} catch (err: any) {
 			dispatch({
 				type: DELETE_QA_FOR_USER_FAILURE,
-				payload: err?.res.data?.message,
+				payload: err?.response?.data?.message,
 			});
 			dispatch(
 				alertActions.error(

@@ -122,7 +122,7 @@ export const Todo = () => {
 	}, [TodoState?.success, AlertState.message]);
 
 	useEffect(() => {
-		dispatch(getTodoListWithUserId(user?._id, currentPage, 20) as any);
+		dispatch(getTodoListWithUserId(user?._id, currentPage, 10) as any);
 	}, [dispatch, user?._id, TodoState?.success, AlertState?.message, currentPage]);
 
 	useEffect(() => {
@@ -174,7 +174,7 @@ export const Todo = () => {
 					generateDesc={generateTodoDescription}
 				/>
 				<Accordion className="rounded-lg" autoCapitalize="words">
-					{SearchState?.filteredItems?.length > 0
+					{SearchState?.query
 						? SearchState.filteredItems?.map((item) => {
 								return (
 									<TodoItem
@@ -207,7 +207,7 @@ export const Todo = () => {
 						  })}
 				</Accordion>
 				{/* Pagination Component */}
-				{!SearchState?.filteredItems?.length && TodoState?.pagination && (
+				{!SearchState?.query && TodoState?.pagination?.totalPages > 1 && (
 					<Pagination
 						currentPage={TodoState.pagination.pageNumber}
 						totalPages={TodoState.pagination.totalPages}

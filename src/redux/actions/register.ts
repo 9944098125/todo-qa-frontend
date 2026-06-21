@@ -14,7 +14,7 @@ export const register =
 			if (res) {
 				dispatch({
 					type: REGISTER_SUCCESS,
-					payload: res.data?.message,
+					payload: res.data,
 				});
 				dispatch(alertActions.success(res?.data?.message));
 				setTimeout(() => {

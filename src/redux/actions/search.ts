@@ -1,10 +1,14 @@
 import { AppDispatch } from "../reducers";
-import { SEARCH } from "./types";
+import { CLEAR_SEARCH, SEARCH } from "./types";
 
-export const searchItems = (items: any[]) => async (dispatch: AppDispatch) => {
-	dispatch({
-		type: SEARCH,
-		payload: items,
-	});
-	// console.log(items);
+export const searchItems =
+	(items: any[], query: string) => async (dispatch: AppDispatch) => {
+		dispatch({
+			type: SEARCH,
+			payload: { items, query },
+		});
+	};
+
+export const clearSearch = () => async (dispatch: AppDispatch) => {
+	dispatch({ type: CLEAR_SEARCH });
 };

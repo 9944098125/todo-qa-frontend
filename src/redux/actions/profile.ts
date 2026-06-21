@@ -91,7 +91,7 @@ export const deleteProfile =
 			if (res) {
 				dispatch({
 					type: DELETE_PROFILE_SUCCESS,
-					payload: res.data.message,
+					payload: res.data?.message,
 				});
 				dispatch(
 					alertActions.success(

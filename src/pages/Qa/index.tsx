@@ -131,8 +131,12 @@ export const Qa = () => {
 	};
 
 	useEffect(() => {
+		setCurrentPage(1);
+	}, [activeSelection]);
+
+	useEffect(() => {
 		if (activeSelection) {
-			dispatch(getQa(user?._id, activeSelection as string, currentPage, 20) as any);
+			dispatch(getQa(user?._id, activeSelection as string, currentPage, 10) as any);
 		}
 	}, [
 		dispatch,
@@ -165,7 +169,7 @@ export const Qa = () => {
 					generateAIAnswer={generateAnswerWithAi}
 				/>
 				<Accordion>
-					{SearchState?.filteredItems?.length > 0
+					{SearchState?.query
 						? SearchState.filteredItems?.map((item) => {
 								return (
 									<QaItem
@@ -196,7 +200,7 @@ export const Qa = () => {
 						  })}
 				</Accordion>
 				{/* Pagination Component */}
-				{!SearchState?.filteredItems?.length && QaState?.pagination && (
+				{!SearchState?.query && QaState?.pagination?.totalPages > 1 && (
 					<Pagination
 						currentPage={QaState.pagination.pageNumber}
 						totalPages={QaState.pagination.totalPages}

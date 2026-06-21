@@ -12,6 +12,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import QaItem from "../../components/parts/qa-item";
 import { Accordion } from "react-accessible-accordion";
+import { Pagination } from "../../components/ui/pagination";
 import { generateAnswer } from "../../redux/actions/qa";
 
 export const UserQa = () => {
@@ -39,6 +40,11 @@ export const UserQa = () => {
 		formattedData: string;
 	}>({ rawData: "", formattedData: "" });
 	const [importance, setImportance] = useState<string>("");
+	const [currentPage, setCurrentPage] = useState<number>(1);
+
+	const handlePageChange = (page: number) => {
+		setCurrentPage(page);
+	};
 
 	const handleAnswerChange = (value: string) => {
 		setAnswer({
@@ -123,12 +129,21 @@ export const UserQa = () => {
 	}, [AdminQaState?.success, AdminQaState?.toggler]);
 
 	useEffect(() => {
+		setCurrentPage(1);
+	}, [activeSelection]);
+
+	useEffect(() => {
 		if (activeSelection) {
 			dispatch(
-				getQaOfAUser(userId as string, activeSelection as string) as any
+				getQaOfAUser(
+					userId as string,
+					activeSelection as string,
+					currentPage,
+					10
+				) as any
 			);
 		}
-	}, [dispatch, userId, activeSelection, AdminQaState?.toggler]);
+	}, [dispatch, userId, activeSelection, AdminQaState?.toggler, currentPage]);
 
 	useEffect(() => {
 		if (modalTitle === "Add Qa") {
@@ -180,6 +195,16 @@ export const UserQa = () => {
 							);
 						})}
 					</Accordion>
+					{/* Pagination Component */}
+					{AdminQaState?.pagination?.totalPages > 1 && (
+						<Pagination
+							currentPage={AdminQaState.pagination.pageNumber}
+							totalPages={AdminQaState.pagination.totalPages}
+							totalDocuments={AdminQaState.pagination.totalDocuments}
+							pageSize={AdminQaState.pagination.pageSize}
+							onPageChange={handlePageChange}
+						/>
+					)}
 				</div>
 			</div>
 		</React.Fragment>

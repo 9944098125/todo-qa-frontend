@@ -1,11 +1,29 @@
 import Axios from "axios";
+import {
+	getApiErrorMessage,
+	normalizeApiResponse,
+} from "../../utils/api-response";
 
 export const Api = Axios.create({
-	// baseURL: "http://localhost:5000/api",
-	// Use full URL including protocol for deployed backend. Prefer reading from an env var
-	// e.g. process.env.REACT_APP_API_BASE_URL
-	baseURL: "https://todo-qa-with-ts-backend-production.up.railway.app/api",
+	baseURL: "http://localhost:5001/api",
 	headers: {
 		"Content-Type": "application/json",
 	},
 });
+
+Api.interceptors.response.use(
+	(response) => {
+		response.data = normalizeApiResponse(response.data);
+		return response;
+	},
+	(error) => {
+		const message = getApiErrorMessage(error);
+		if (error.response?.data && typeof error.response.data === "object") {
+			error.response.data = {
+				...error.response.data,
+				message,
+			};
+		}
+		return Promise.reject(error);
+	}
+);

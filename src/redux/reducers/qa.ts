@@ -25,7 +25,7 @@ const initialState = {
 	createdUpdatedSuccessfully: false,
 	pagination: {
 		pageNumber: 1,
-		pageSize: 20,
+		pageSize: 10,
 		totalPages: 1,
 		totalDocuments: 0,
 	},
@@ -69,10 +69,10 @@ export default function qa(state = initialState, action: any) {
 				message: action.payload?.message,
 				qaItems: action.payload?.data?.documents || action.payload?.qa,
 				pagination: {
-					pageNumber: parseInt(action.payload?.data?.pageNumber) || 1,
-					pageSize: parseInt(action.payload?.data?.pageSize) || 20,
-					totalPages: parseInt(action.payload?.data?.totalPages) || 1,
-					totalDocuments: parseInt(action.payload?.data?.totalDocuments) || 0,
+					pageNumber: Number(action.payload?.data?.pageNumber) || 1,
+					pageSize: Number(action.payload?.data?.pageSize) || 10,
+					totalPages: Number(action.payload?.data?.totalPages) || 1,
+					totalDocuments: Number(action.payload?.data?.totalDocuments) || 0,
 				},
 			};
 		case GET_QA_FAILURE:

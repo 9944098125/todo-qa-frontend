@@ -7,7 +7,7 @@ import { toggleTheme } from "../../redux/actions/theme";
 import { RootState } from "../../redux/reducers";
 import { logout } from "../../redux/actions/login";
 import { Input } from "../ui/Input";
-import { searchItems } from "../../redux/actions/search";
+import { clearSearch, searchItems } from "../../redux/actions/search";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -52,42 +52,40 @@ const Navbar = () => {
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
-			if (search) {
+			if (search.trim()) {
+				const term = search.trim().toLowerCase();
 				if (location.pathname?.includes("users")) {
 					dispatch(
 						searchItems(
 							Users?.filter((i) =>
-								i?.name?.toLowerCase().includes(search.toLowerCase())
-							)
+								i?.name?.toLowerCase().includes(term)
+							),
+							search.trim()
 						) as any
 					);
 				} else if (location.pathname?.includes("todo")) {
 					dispatch(
 						searchItems(
 							TodoItems?.filter((i) =>
-								i?.title.toLowerCase().includes(search.toLowerCase())
-							)
+								i?.title?.toLowerCase().includes(term)
+							),
+							search.trim()
 						) as any
 					);
 				} else if (location.pathname?.includes("question")) {
 					dispatch(
 						searchItems(
 							QaItems?.filter((i) =>
-								i?.question.toLowerCase().includes(search.toLowerCase())
-							)
+								i?.question?.toLowerCase().includes(term)
+							),
+							search.trim()
 						) as any
 					);
 				}
 			} else {
-				if (location.pathname?.includes("users")) {
-					dispatch(searchItems(Users) as any); // Reset the filtered list to all users
-				} else if (location.pathname?.includes("todo")) {
-					dispatch(searchItems(TodoItems) as any); // Reset the filtered list to all todo items
-				} else if (location.pathname?.includes("question")) {
-					dispatch(searchItems(QaItems) as any); // Reset the filtered list to all QA items
-				}
+				dispatch(clearSearch() as any);
 			}
-		}, 300); // Adjust the delay as needed
+		}, 300);
 
 		return () => clearTimeout(timeoutId);
 	}, [search, location.pathname, Users, TodoItems, QaItems, dispatch]);
