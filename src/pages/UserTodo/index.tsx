@@ -9,7 +9,7 @@ import {
 	getTodoOfUser,
 	updateTodoForUser,
 } from "../../redux/actions/admin";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RootState } from "../../redux/reducers";
 import TodoItem from "../../components/parts/todo-item";
 import { Accordion } from "react-accessible-accordion";
@@ -27,7 +27,6 @@ export const UserTodo = () => {
 	const form = useForm();
 	const { userId } = useParams();
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const [modalHead, setModalHead] = useState<string>("");
 
@@ -139,7 +138,7 @@ export const UserTodo = () => {
 			setDate(null);
 			setTodoDesc({ rawData: "", formattedData: "" });
 		}
-	}, [AdminTodo?.success, AlertState.message]);
+	}, [AdminTodo?.success, AlertState.message, form]);
 
 	useEffect(() => {
 		dispatch(getTodoOfUser(userId as string, admin?._id, currentPage, 10) as any);
@@ -166,7 +165,7 @@ export const UserTodo = () => {
 			setUrgency(false);
 			setDate(null);
 		}
-	}, [showTodoModal]);
+	}, [showTodoModal, modalHead]);
 
 	return (
 		<React.Fragment>

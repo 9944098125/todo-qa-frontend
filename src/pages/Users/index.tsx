@@ -7,15 +7,10 @@ import UserItem from "./components/user-item";
 import { AlertModal } from "../../components/ui/alert";
 import GlobalButton from "../../components/ui/button";
 import { Pagination } from "../../components/ui/pagination";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Users = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
-
-	const admin = localStorage.getItem("asp-todo-qa-user")
-		? JSON.parse(localStorage.getItem("asp-todo-qa-user") || "null")
-		: null;
 
 	const UsersState = useSelector((state: RootState) => state.admin);
 	const AlertState = useSelector((state: RootState) => state.alert);

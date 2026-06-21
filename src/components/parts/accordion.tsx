@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	AccordionItem,
 	AccordionItemHeading,
@@ -8,7 +8,7 @@ import {
 
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
-import { FaArrowDown, FaArrowRight } from "react-icons/fa6";
+import { FaArrowRight } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/reducers";
 import { RiDeleteBin2Fill, RiEdit2Fill } from "react-icons/ri";
@@ -43,8 +43,6 @@ const AccordionComponent = (props: Props) => {
 	} = props;
 	console.log("content", content);
 	const ThemeState = useSelector((state: RootState) => state.theme);
-
-	const [active, setActive] = useState(false);
 
 	return (
 		<React.Fragment>

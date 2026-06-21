@@ -22,15 +22,6 @@ export const UserDetailsPage = () => {
 	const [image, setImage] = useState("");
 	const [imageUploadLoading, setImageUploadLoading] = useState(false);
 
-	const handleSubmitImageUpload = () => {
-		const body = {
-			profilePicture: image,
-		};
-		// console.log("image", image);
-		dispatch(updateUser(userId!, body) as any);
-		setImage("");
-	};
-
 	const changeImage = async (file: File | null) => {
 		setImageUploadLoading(true);
 		if (file === null) {
@@ -52,7 +43,6 @@ export const UserDetailsPage = () => {
 			})
 				.then((res) => res.json())
 				.then((data) => {
-					// console.log(data);
 					setImage(data.url);
 					setImageUploadLoading(false);
 				})
@@ -65,10 +55,11 @@ export const UserDetailsPage = () => {
 	};
 
 	useEffect(() => {
-		if (image) {
-			handleSubmitImageUpload();
+		if (image && userId) {
+			dispatch(updateUser(userId, { profilePicture: image }) as any);
+			setImage("");
 		}
-	}, [image]);
+	}, [image, userId, dispatch]);
 
 	useEffect(() => {
 		dispatch(getUserById(userId!) as any);

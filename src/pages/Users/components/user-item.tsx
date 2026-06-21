@@ -2,7 +2,7 @@ import React from "react";
 import { ImageLazyLoad } from "../../../components/image-lazyload/Loadable";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/reducers";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
 	name: string;

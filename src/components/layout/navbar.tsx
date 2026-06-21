@@ -21,7 +21,6 @@ const Navbar = () => {
 	const Users = useSelector((state: RootState) => state.admin.users);
 	const TodoItems = useSelector((state: RootState) => state.todo.todoItems);
 	const QaItems = useSelector((state: RootState) => state.qa.qaItems);
-	const AdminState = useSelector((state: RootState) => state.admin);
 
 	const user = localStorage.getItem("asp-todo-qa-user")
 		? JSON.parse(localStorage.getItem("asp-todo-qa-user") || "")

@@ -5,10 +5,8 @@ import Label from "../../../components/ui/Label";
 import GlobalButton from "../../../components/ui/button";
 import { RiDeleteBin3Fill, RiEdit2Fill } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { deleteProfile, updateProfile } from "../../../redux/actions/profile";
 import Loader from "../../../components/ui/Loader";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../../redux/actions/login";
 import ConfirmationModal from "../../../components/parts/confirmation-modal";
 import { deleteUser, updateUser } from "../../../redux/actions/admin";
 

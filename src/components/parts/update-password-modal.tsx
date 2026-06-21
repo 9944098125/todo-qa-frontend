@@ -4,7 +4,6 @@ import { RootState } from "../../redux/reducers";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import GlobalButton from "../ui/button";
-import { RiCloseCircleFill } from "react-icons/ri";
 import { updatePassword } from "../../redux/actions/login";
 import Loader from "../ui/Loader";
 import PasswordInput from "../../pages/Registration/components/password-input";
@@ -43,7 +42,7 @@ const UpdatePasswordModal = (props: Props) => {
 		if (AuthState?.updateSuccess && AlertState.message) {
 			setShow(false);
 		}
-	}, [AuthState.updateSuccess]);
+	}, [AuthState.updateSuccess, AlertState.message, setShow]);
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
 		if (e.key === "Enter") {

@@ -26,15 +26,6 @@ export const Profile = () => {
 	const [imageUploadLoading, setImageUploadLoading] = useState(false);
 	const [showUpdatePasswordModal, setShowUpdatePasswordModal] = useState(false);
 
-	const handleSubmitImageUpload = () => {
-		const body = {
-			profilePicture: image,
-		};
-		// console.log("image", image);
-		dispatch(updateProfile(body, user?._id) as any);
-		setImage("");
-	};
-
 	const changeImage = async (file: File | null) => {
 		setImageUploadLoading(true);
 		if (file === null) {
@@ -69,10 +60,11 @@ export const Profile = () => {
 	};
 
 	useEffect(() => {
-		if (image) {
-			handleSubmitImageUpload();
+		if (image && user?._id) {
+			dispatch(updateProfile({ profilePicture: image }, user._id) as any);
+			setImage("");
 		}
-	}, [image]);
+	}, [image, user?._id, dispatch]);
 
 	useEffect(() => {
 		dispatch(getProfile(user?._id) as any);

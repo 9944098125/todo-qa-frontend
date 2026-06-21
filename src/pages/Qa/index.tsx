@@ -13,12 +13,9 @@ import {
 	getQa,
 	updateQa,
 } from "../../redux/actions/qa";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 export const Qa = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const AlertState = useSelector((state: RootState) => state.alert);
 	const QaState = useSelector((state: RootState) => state.qa);
@@ -124,7 +121,7 @@ export const Qa = () => {
 			});
 			setImportance("");
 		}
-	}, [showQaModal]);
+	}, [showQaModal, modalTitle]);
 
 	const handlePageChange = (page: number) => {
 		setCurrentPage(page);
@@ -140,6 +137,7 @@ export const Qa = () => {
 		}
 	}, [
 		dispatch,
+		user?._id,
 		activeSelection,
 		QaState?.createdUpdatedSuccessfully,
 		AlertState?.message,

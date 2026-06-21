@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import GlobalButton from "../ui/button";
 import { RiAddBoxFill } from "react-icons/ri";
 import { AddEditModal } from "./add-edit-modal";

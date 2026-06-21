@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import UserImage from "./components/user-image";
 import UserDetails from "./components/user-details";
 import { AlertModal } from "../../components/ui/alert";
@@ -8,15 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 export const AddUser = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	// console.log(userId);
 
 	const UserDetailsState = useSelector((state: RootState) => state.admin);
 	const AlertState = useSelector((state: RootState) => state.alert);
-
-	const user = localStorage.getItem("asp-todo-qa-user")
-		? JSON.parse(localStorage.getItem("asp-todo-qa-user") || "null")
-		: null;
 
 	const [image, setImage] = useState("");
 	const [imageUploadLoading, setImageUploadLoading] = useState(false);

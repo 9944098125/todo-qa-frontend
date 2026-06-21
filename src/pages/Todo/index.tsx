@@ -17,7 +17,6 @@ import {
 	getTodoListWithUserId,
 	updateTodo,
 } from "../../redux/actions/todo";
-import { useNavigate } from "react-router-dom";
 
 type ValuePiece = Date | null;
 
@@ -26,7 +25,6 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export const Todo = () => {
 	const form = useForm();
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const [modalHead, setModalHead] = useState<string>("");
 	const [todoId, setTodoId] = useState<string>("");
@@ -119,7 +117,7 @@ export const Todo = () => {
 			setDate(null);
 			setTodoDesc({ rawData: "", formattedData: "" });
 		}
-	}, [TodoState?.success, AlertState.message]);
+	}, [TodoState?.success, AlertState.message, form]);
 
 	useEffect(() => {
 		dispatch(getTodoListWithUserId(user?._id, currentPage, 10) as any);
@@ -135,7 +133,7 @@ export const Todo = () => {
 			setUrgency(false);
 			setDate(null);
 		}
-	}, [showTodoModal]);
+	}, [showTodoModal, modalHead]);
 
 	const handlePageChange = (page: number) => {
 		setCurrentPage(page);

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { RiCloseCircleFill, RiTodoFill } from "react-icons/ri";
+import React from "react";
+import { RiTodoFill } from "react-icons/ri";
 import { Modal } from "react-responsive-modal";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -50,7 +50,6 @@ export const AddEditModal = (props: Props) => {
 		title,
 		submitTodo,
 		todoDesc,
-		setTodoDesc,
 		date,
 		setDate,
 		isLoading,
@@ -64,7 +63,6 @@ export const AddEditModal = (props: Props) => {
 		question,
 		setQuestion,
 		answer,
-		setAnswer,
 		handleAnswerChange,
 		setImportance,
 		importance,
@@ -72,24 +70,6 @@ export const AddEditModal = (props: Props) => {
 	} = props;
 
 	const ThemeState = useSelector((state: RootState) => state.theme);
-
-	const getResponsiveStyles = () => {
-		const screenWidth = window.innerWidth;
-
-		if (screenWidth <= 700) {
-			return {
-				width: "90%",
-			};
-		} else if (screenWidth <= 1240) {
-			return {
-				width: "60%",
-			};
-		} else {
-			return {
-				width: "50%",
-			};
-		}
-	};
 
 	const closeIcon = (
 		<div className="border-blue-600 border rounded-full p-1">

@@ -9,7 +9,7 @@ import {
 	getQaOfAUser,
 	updateQaForUser,
 } from "../../redux/actions/admin";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import QaItem from "../../components/parts/qa-item";
 import { Accordion } from "react-accessible-accordion";
 import { Pagination } from "../../components/ui/pagination";
@@ -18,7 +18,6 @@ import { generateAnswer } from "../../redux/actions/qa";
 export const UserQa = () => {
 	const { userId } = useParams();
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 
 	const AlertState = useSelector((state: RootState) => state.alert);
 	const AdminQaState = useSelector((state: RootState) => state.admin);
@@ -154,7 +153,7 @@ export const UserQa = () => {
 			});
 			setImportance("");
 		}
-	}, [showQaModal]);
+	}, [showQaModal, modalTitle]);
 
 	return (
 		<React.Fragment>
