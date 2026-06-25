@@ -50,6 +50,7 @@ const initialState = {
 	error: "",
 	successMessage: "",
 	isLoading: false,
+	isFetchingList: false,
 	user: null,
 	toggler: false,
 	pagination: {
@@ -196,11 +197,13 @@ export default function admin(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: true,
+				isFetchingList: true,
 			};
 		case GET_TODO_FOR_USER_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				successMessage: action.payload?.message,
 				success: true,
 				toggler: !state.toggler,
@@ -216,6 +219,7 @@ export default function admin(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				error: action.payload,
 				success: false,
 			};
@@ -286,12 +290,14 @@ export default function admin(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: true,
+				isFetchingList: true,
 				success: false,
 			};
 		case GET_QA_OF_USER_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				success: true,
 				qaItems: action.payload?.data?.documents || action.payload?.qas,
 				successMessage: action.payload?.message,
@@ -306,6 +312,7 @@ export default function admin(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				success: false,
 				qaItems: [],
 				error: action.payload,

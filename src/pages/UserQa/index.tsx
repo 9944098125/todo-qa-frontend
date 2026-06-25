@@ -14,6 +14,7 @@ import QaItem from "../../components/parts/qa-item";
 import { Accordion } from "react-accessible-accordion";
 import { Pagination } from "../../components/ui/pagination";
 import { generateAnswer } from "../../redux/actions/qa";
+import ItemListSkeleton from "../../components/parts/item-list-skeleton";
 
 export const UserQa = () => {
 	const { userId } = useParams();
@@ -179,20 +180,25 @@ export const UserQa = () => {
 				/>
 				<div className="flex flex-col space-y-2 md:space-y-4">
 					<Accordion className="rounded-lg" autoCapitalize="words">
-						{AdminQaState?.qaItems?.map((item) => {
-							return (
-								<QaItem
-									question={item?.question}
-									answer={item?.answer}
-									importance={item?.importance}
-									_id={item?._id}
-									editQa={editQa}
-									deleteQa={deleteQa}
-									setModalHead={setModalTitle}
-									isLoading={AdminQaState?.isLoading}
-								/>
-							);
-						})}
+						{AdminQaState?.isFetchingList ? (
+							<ItemListSkeleton variant="qa" />
+						) : (
+							AdminQaState?.qaItems?.map((item) => {
+								return (
+									<QaItem
+										key={item?._id}
+										question={item?.question}
+										answer={item?.answer}
+										importance={item?.importance}
+										_id={item?._id}
+										editQa={editQa}
+										deleteQa={deleteQa}
+										setModalHead={setModalTitle}
+										isLoading={AdminQaState?.isLoading}
+									/>
+								);
+							})
+						)}
 					</Accordion>
 					{/* Pagination Component */}
 					{AdminQaState?.pagination?.totalPages > 1 && (

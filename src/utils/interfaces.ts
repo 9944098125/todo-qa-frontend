@@ -50,6 +50,7 @@ export interface TodoState {
 	success: boolean;
 	error: any;
 	isLoading: boolean;
+	isFetchingList: boolean;
 	message: string | null;
 	aiDesc: string | null;
 	todoCountChanged: boolean;
@@ -62,6 +63,7 @@ export interface QaState {
 	message: string | null;
 	aiAnswer: string | null;
 	isLoading: boolean;
+	isFetchingList: boolean;
 	createdUpdatedSuccessfully: boolean;
 	pagination: PaginationData;
 }
@@ -74,6 +76,7 @@ export interface AdminState {
 	error: string;
 	successMessage: string;
 	isLoading: boolean;
+	isFetchingList: boolean;
 	user: any;
 	toggler: boolean;
 	pagination: PaginationData;

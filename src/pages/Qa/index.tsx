@@ -13,6 +13,7 @@ import {
 	getQa,
 	updateQa,
 } from "../../redux/actions/qa";
+import ItemListSkeleton from "../../components/parts/item-list-skeleton";
 
 export const Qa = () => {
 	const dispatch = useDispatch();
@@ -167,35 +168,41 @@ export const Qa = () => {
 					generateAIAnswer={generateAnswerWithAi}
 				/>
 				<Accordion>
-					{SearchState?.query
-						? SearchState.filteredItems?.map((item) => {
-								return (
-									<QaItem
-										question={item?.question}
-										answer={item?.answer}
-										importance={item?.importance}
-										_id={item?._id}
-										editQa={editQa}
-										deleteQa={deleteOwnQa}
-										setModalHead={setModalTitle}
-										isLoading={QaState?.isLoading}
-									/>
-								);
-						  })
-						: QaState?.qaItems?.map((item) => {
-								return (
-									<QaItem
-										question={item?.question}
-										answer={item?.answer}
-										importance={item?.importance}
-										_id={item?._id}
-										editQa={editQa}
-										deleteQa={deleteOwnQa}
-										setModalHead={setModalTitle}
-										isLoading={QaState?.isLoading}
-									/>
-								);
-						  })}
+					{QaState?.isFetchingList && !SearchState?.query ? (
+						<ItemListSkeleton variant="qa" />
+					) : SearchState?.query ? (
+						SearchState.filteredItems?.map((item) => {
+							return (
+								<QaItem
+									key={item?._id}
+									question={item?.question}
+									answer={item?.answer}
+									importance={item?.importance}
+									_id={item?._id}
+									editQa={editQa}
+									deleteQa={deleteOwnQa}
+									setModalHead={setModalTitle}
+									isLoading={QaState?.isLoading}
+								/>
+							);
+						})
+					) : (
+						QaState?.qaItems?.map((item) => {
+							return (
+								<QaItem
+									key={item?._id}
+									question={item?.question}
+									answer={item?.answer}
+									importance={item?.importance}
+									_id={item?._id}
+									editQa={editQa}
+									deleteQa={deleteOwnQa}
+									setModalHead={setModalTitle}
+									isLoading={QaState?.isLoading}
+								/>
+							);
+						})
+					)}
 				</Accordion>
 				{/* Pagination Component */}
 				{!SearchState?.query && QaState?.pagination?.totalPages > 1 && (

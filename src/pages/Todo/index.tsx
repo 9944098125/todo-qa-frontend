@@ -17,6 +17,7 @@ import {
 	getTodoListWithUserId,
 	updateTodo,
 } from "../../redux/actions/todo";
+import ItemListSkeleton from "../../components/parts/item-list-skeleton";
 
 type ValuePiece = Date | null;
 
@@ -172,37 +173,43 @@ export const Todo = () => {
 					generateDesc={generateTodoDescription}
 				/>
 				<Accordion className="rounded-lg" autoCapitalize="words">
-					{SearchState?.query
-						? SearchState.filteredItems?.map((item) => {
-								return (
-									<TodoItem
-										_id={item?._id}
-										title={item?.title}
-										description={item?.description}
-										deadline={formatDate(item?.deadline || "12/12/12")}
-										urgency={item?.urgency}
-										editTodo={editTodo}
-										deleteTodo={deleteOwnTodo}
-										setModalHead={setModalHead}
-										isLoading={TodoState?.isLoading}
-									/>
-								);
-						  })
-						: TodoState?.todoItems?.map((item) => {
-								return (
-									<TodoItem
-										_id={item?._id}
-										title={item?.title}
-										description={item?.description}
-										deadline={formatDate(item?.deadline || "12/12/12")}
-										urgency={item?.urgency}
-										editTodo={editTodo}
-										deleteTodo={deleteOwnTodo}
-										setModalHead={setModalHead}
-										isLoading={TodoState?.isLoading}
-									/>
-								);
-						  })}
+					{TodoState?.isFetchingList && !SearchState?.query ? (
+						<ItemListSkeleton variant="todo" />
+					) : SearchState?.query ? (
+						SearchState.filteredItems?.map((item) => {
+							return (
+								<TodoItem
+									key={item?._id}
+									_id={item?._id}
+									title={item?.title}
+									description={item?.description}
+									deadline={formatDate(item?.deadline || "12/12/12")}
+									urgency={item?.urgency}
+									editTodo={editTodo}
+									deleteTodo={deleteOwnTodo}
+									setModalHead={setModalHead}
+									isLoading={TodoState?.isLoading}
+								/>
+							);
+						})
+					) : (
+						TodoState?.todoItems?.map((item) => {
+							return (
+								<TodoItem
+									key={item?._id}
+									_id={item?._id}
+									title={item?.title}
+									description={item?.description}
+									deadline={formatDate(item?.deadline || "12/12/12")}
+									urgency={item?.urgency}
+									editTodo={editTodo}
+									deleteTodo={deleteOwnTodo}
+									setModalHead={setModalHead}
+									isLoading={TodoState?.isLoading}
+								/>
+							);
+						})
+					)}
 				</Accordion>
 				{/* Pagination Component */}
 				{!SearchState?.query && TodoState?.pagination?.totalPages > 1 && (

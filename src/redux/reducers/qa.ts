@@ -22,6 +22,7 @@ const initialState = {
 	message: null,
 	aiAnswer: null,
 	isLoading: false,
+	isFetchingList: false,
 	createdUpdatedSuccessfully: false,
 	pagination: {
 		pageNumber: 1,
@@ -60,12 +61,14 @@ export default function qa(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: true,
+				isFetchingList: true,
 				success: false,
 			};
 		case GET_QA_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				message: action.payload?.message,
 				qaItems: action.payload?.data?.documents || action.payload?.qa,
 				pagination: {
@@ -79,6 +82,7 @@ export default function qa(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				success: false,
 				message: action.payload,
 			};

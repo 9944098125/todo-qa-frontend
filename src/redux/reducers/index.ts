@@ -89,6 +89,7 @@ export interface RootState {
 	};
 	admin: {
 		isLoading: boolean;
+		isFetchingList: boolean;
 		error: string | null;
 		success: boolean;
 		users: {
@@ -137,6 +138,7 @@ export interface RootState {
 		success: boolean;
 		error: any;
 		isLoading: boolean;
+		isFetchingList: boolean;
 		message: string;
 		aiDesc: string;
 		todoCountChanged: boolean;
@@ -159,6 +161,7 @@ export interface RootState {
 		message: any;
 		aiAnswer: any;
 		isLoading: boolean;
+		isFetchingList: boolean;
 		createdUpdatedSuccessfully: boolean;
 		pagination: {
 			pageNumber: number;

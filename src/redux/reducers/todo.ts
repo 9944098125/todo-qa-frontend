@@ -21,6 +21,7 @@ const initialState = {
 	success: false,
 	error: null,
 	isLoading: false,
+	isFetchingList: false,
 	message: null,
 	aiDesc: null,
 	todoCountChanged: false,
@@ -60,11 +61,13 @@ export default function todo(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: true,
+				isFetchingList: true,
 			};
 		case GET_TODO_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				todoItems: action.payload?.data?.documents || action.payload?.todoList,
 				message: action.payload?.message,
 				pagination: {
@@ -78,6 +81,7 @@ export default function todo(state = initialState, action: any) {
 			return {
 				...state,
 				isLoading: false,
+				isFetchingList: false,
 				success: false,
 				error: action.payload,
 				message: action.payload,

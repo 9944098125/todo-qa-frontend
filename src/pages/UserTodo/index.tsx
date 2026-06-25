@@ -18,6 +18,7 @@ import { AlertModal } from "../../components/ui/alert";
 import { Pagination } from "../../components/ui/pagination";
 import { useForm } from "react-hook-form";
 import { generateTodoDesc } from "../../redux/actions/todo";
+import ItemListSkeleton from "../../components/parts/item-list-skeleton";
 
 type ValuePiece = Date | null;
 
@@ -201,21 +202,26 @@ export const UserTodo = () => {
 				/>
 				<div className="p-2 md:p-5">
 					<Accordion className="rounded-lg" autoCapitalize="words">
-						{AdminTodo?.todoItems?.map((item) => {
-							return (
-								<TodoItem
-									_id={item?._id}
-									title={item?.title}
-									description={item?.description}
-									deadline={formatDate(item?.deadline || "12/12/12")}
-									urgency={item?.urgency}
-									editTodo={editTodo}
-									deleteTodo={deleteTodo}
-									setModalHead={setModalHead}
-									isLoading={AdminTodo?.isLoading}
-								/>
-							);
-						})}
+						{AdminTodo?.isFetchingList ? (
+							<ItemListSkeleton variant="todo" />
+						) : (
+							AdminTodo?.todoItems?.map((item) => {
+								return (
+									<TodoItem
+										key={item?._id}
+										_id={item?._id}
+										title={item?.title}
+										description={item?.description}
+										deadline={formatDate(item?.deadline || "12/12/12")}
+										urgency={item?.urgency}
+										editTodo={editTodo}
+										deleteTodo={deleteTodo}
+										setModalHead={setModalHead}
+										isLoading={AdminTodo?.isLoading}
+									/>
+								);
+							})
+						)}
 					</Accordion>
 					{/* Pagination Component */}
 					{AdminTodo?.pagination?.totalPages > 1 && (
